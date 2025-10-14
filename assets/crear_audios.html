@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Generador de Archivos de Audio - Actividad 13</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 0 auto;
+            padding: 20px;
+            background: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        h1 {
+            color: #333;
+            text-align: center;
+        }
+        .audio-generator {
+            margin: 20px 0;
+            padding: 20px;
+            border: 2px dashed #4CAF50;
+            border-radius: 8px;
+            background: #f9f9f9;
+        }
+        button {
+            background: #4CAF50;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
+        }
+        button:hover {
+            background: #45a049;
+        }
+        .instructions {
+            background: #e3f2fd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+        }
+        .note {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 20px 0;
+            border-left: 4px solid #ffc107;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🎵 Generador de Archivos de Audio</h1>
+        <p><strong>Actividad 13 - Google Maps + Mashup</strong></p>
+        
+        <div class="instructions">
+            <h3>📋 Instrucciones</h3>
+            <p>Este generador crea archivos de audio de ejemplo para tu aplicación. Los sonidos son generados sintéticamente y duran aproximadamente 2-3 segundos cada uno.</p>
+        </div>
+
+        <div class="audio-generator">
+            <h3>🎶 Generar Archivos de Audio</h3>
+            <p>Haz clic en los botones para generar y descargar los archivos de audio:</p>
+            
+            <button onclick="generateAudio(1)">🎵 Generar Sonido 1 (Éxito)</button>
+            <button onclick="generateAudio(2)">🎶 Generar Sonido 2 (Movimiento)</button>
+            <button onclick="generateAudio(3)">🔊 Generar Sonido 3 (Notificación)</button>
+            
+            <div id="status"></div>
+        </div>
+
+        <div class="note">
+            <h4>⚠️ Nota Importante</h4>
+            <p>Los archivos generados son sonidos sintéticos básicos. Para una mejor experiencia, te recomendamos:</p>
+            <ul>
+                <li>Descargar sonidos reales de <a href="https://freesound.org" target="_blank">Freesound.org</a></li>
+                <li>Usar <a href="https://zapsplat.com" target="_blank">Zapsplat.com</a> (registro gratuito)</li>
+                <li>Crear tus propios sonidos con <a href="https://www.audacityteam.org" target="_blank">Audacity</a></li>
+            </ul>
+        </div>
+
+        <div class="instructions">
+            <h3>📁 Ubicación de Archivos</h3>
+            <p>Los archivos se descargarán automáticamente. Luego debes moverlos a la carpeta <code>assets/</code> de tu proyecto:</p>
+            <ul>
+                <li><code>sonido_mashup_1.mp3</code></li>
+                <li><code>sonido_mashup_2.mp3</code></li>
+                <li><code>sonido_mashup_3.mp3</code></li>
+            </ul>
+        </div>
+    </div>
+
+    <script>
+        function generateAudio(type) {
+            const status = document.getElementById('status');
+            status.innerHTML = '🔄 Generando audio...';
+            
+            try {
+                // Crear contexto de audio
+                const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const sampleRate = audioContext.sampleRate;
+                const duration = 2; // 2 segundos
+                const length = sampleRate * duration;
+                
+                // Crear buffer de audio
+                const buffer = audioContext.createBuffer(1, length, sampleRate);
+                const data = buffer.getChannelData(0);
+                
+                // Generar diferentes tipos de sonido
+                for (let i = 0; i < length; i++) {
+                    const t = i / sampleRate;
+                    let sample = 0;
+                    
+                    switch(type) {
+                        case 1: // Sonido de éxito (tono ascendente)
+                            sample = Math.sin(2 * Math.PI * (440 + t * 200) * t) * Math.exp(-t * 2);
+                            break;
+                        case 2: // Sonido de movimiento (ondas múltiples)
+                            sample = (Math.sin(2 * Math.PI * 330 * t) + 
+                                    Math.sin(2 * Math.PI * 440 * t) * 0.5) * Math.exp(-t * 1.5);
+                            break;
+                        case 3: // Sonido de notificación (beep)
+                            sample = Math.sin(2 * Math.PI * 800 * t) * Math.exp(-t * 3) * 
+                                    (Math.sin(2 * Math.PI * 5 * t) * 0.5 + 0.5);
+                            break;
+                    }
+                    
+                    data[i] = sample * 0.3; // Reducir volumen
+                }
+                
+                // Convertir a WAV
+                const wav = encodeWAV(data, sampleRate);
+                const blob = new Blob([wav], { type: 'audio/wav' });
+                
+                // Crear enlace de descarga
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `sonido_mashup_${type}.wav`;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                URL.revokeObjectURL(url);
+                
+                status.innerHTML = `✅ Sonido ${type} generado y descargado`;
+                
+            } catch (error) {
+                status.innerHTML = `❌ Error al generar audio: ${error.message}`;
+                console.error('Error:', error);
+            }
+        }
+        
+        function encodeWAV(samples, sampleRate) {
+            const length = samples.length;
+            const buffer = new ArrayBuffer(44 + length * 2);
+            const view = new DataView(buffer);
+            
+            // WAV header
+            const writeString = (offset, string) => {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            };
+            
+            writeString(0, 'RIFF');
+            view.setUint32(4, 36 + length * 2, true);
+            writeString(8, 'WAVE');
+            writeString(12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, 1, true);
+            view.setUint32(24, sampleRate, true);
+            view.setUint32(28, sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            writeString(36, 'data');
+            view.setUint32(40, length * 2, true);
+            
+            // Convertir samples a 16-bit PCM
+            let offset = 44;
+            for (let i = 0; i < length; i++) {
+                const sample = Math.max(-1, Math.min(1, samples[i]));
+                view.setInt16(offset, sample < 0 ? sample * 0x8000 : sample * 0x7FFF, true);
+                offset += 2;
+            }
+            
+            return buffer;
+        }
+    </script>
+</body>
+</html>

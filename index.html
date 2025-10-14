@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>🌍 Rastreo en Tiempo Real + Mashup 🎵</title>
+  <link rel="stylesheet" href="styles.css">
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>🗺️ Rastreo en Tiempo Real + Mashup 🎵</h1>
+      <p class="subtitle">Integración de Google Maps con APIs multimedia y geolocalización</p>
+    </header>
+
+    <div class="controls">
+      <button id="btn-geolocation" class="btn-primary">📍 Obtener Mi Ubicación</button>
+      <button id="btn-simulate" class="btn-secondary">🎲 Simular Movimiento</button>
+      <button id="btn-sound" class="btn-sound">🎵 Reproducir Mashup</button>
+      <button id="btn-stop" class="btn-stop">⏹️ Detener</button>
+    </div>
+
+    <div id="map"></div>
+
+    <div class="info-panel">
+      <div class="location-info">
+        <h3>📍 Información de Ubicación</h3>
+        <p id="location-coords">Latitud: --, Longitud: --</p>
+        <p id="location-address">Dirección: --</p>
+        <p id="location-time">Última actualización: --</p>
+      </div>
+
+      <div class="api-data">
+        <h3>🌍 Datos de APIs</h3>
+        <div id="nasa-data" class="api-section">
+          <h4>🚀 NASA - Imagen del Espacio</h4>
+          <img id="nasa-image" src="" alt="Imagen de la NASA" style="max-width: 200px; display: none;">
+          <p id="nasa-explanation"></p>
+        </div>
+        
+        <div id="dog-data" class="api-section">
+          <h4>🐕 The Dog API</h4>
+          <img id="dog-image" src="" alt="Imagen de perro" style="max-width: 200px; display: none;">
+        </div>
+      </div>
+    </div>
+
+    <div class="audio-controls">
+      <h3>🎵 Controles de Audio</h3>
+      <div class="audio-buttons">
+        <button id="btn-sound1" class="audio-btn">🎶 Sonido 1</button>
+        <button id="btn-sound2" class="audio-btn">🎵 Sonido 2</button>
+        <button id="btn-sound3" class="audio-btn">🔊 Sonido 3</button>
+      </div>
+      <div class="volume-control">
+        <label for="volume-slider">Volumen:</label>
+        <input type="range" id="volume-slider" min="0" max="100" value="50">
+        <span id="volume-display">50%</span>
+      </div>
+    </div>
+
+    <!-- Elementos de audio -->
+    <audio id="audio1" src="assets/sonido_mashup_1.mp3" preload="auto"></audio>
+    <audio id="audio2" src="assets/sonido_mashup_2.mp3" preload="auto"></audio>
+    <audio id="audio3" src="assets/sonido_mashup_3.mp3" preload="auto"></audio>
+
+    <div class="status">
+      <p id="status-message">Listo para comenzar</p>
+    </div>
+  </div>
+
+  <!-- Configuración -->
+  <script src="config.js"></script>
+  
+  <!-- Google Maps API -->
+  <script src="https://maps.googleapis.com/maps/api/js?key=YOUR_API_KEY&callback=initMap" async defer></script>
+  
+  <script src="script.js"></script>
+</body>
+</html>

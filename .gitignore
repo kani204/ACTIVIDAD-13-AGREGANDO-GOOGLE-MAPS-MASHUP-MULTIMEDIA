@@ -1,0 +1,48 @@
+# Google Maps + Mashup - Actividad 13
+# Archivos a ignorar en el repositorio
+
+# Archivos de configuración sensibles
+config.js
+!config.js.example
+
+# Archivos de audio (agregar manualmente)
+assets/*.mp3
+assets/*.wav
+assets/*.m4a
+assets/*.ogg
+
+# Archivos del sistema
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Archivos de editor
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# Archivos temporales
+*.tmp
+*.temp
+*.log
+
+# Archivos de Node.js (si se usa)
+node_modules/
+package-lock.json
+
+# Archivos de Python (si se usa)
+__pycache__/
+*.pyc
+*.pyo
+
+# Archivos de respaldo
+*.bak
+*.backup
+*~
+
+# Notas personales
+NOTAS.txt
+TODO.txt
+PERSONAL.md
