@@ -205,7 +205,7 @@ Actividad 13/
 
 ## 👨‍💻 Autor
 
-**Estudiante:** [Tu Nombre]  
+**Estudiante:** Fernandez Devicenzi Franco
 **Materia:** Proyecto de Implementación de Sitios web Dinámicos  
 **Institución:** EEST N.º 1 - "Eduardo Ader" Vicente López  
 **Año:** 2025
@@ -217,3 +217,4 @@ Este proyecto es parte de una actividad académica y está destinado únicamente
 ---
 
 **Nota:** Este proyecto demuestra la integración de múltiples tecnologías web modernas y APIs externas, proporcionando una base sólida para proyectos más complejos en el futuro.
+
