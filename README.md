@@ -57,8 +57,7 @@ Actividad 13/
 │   ├── sonido_mashup_1.mp3 # Archivo de audio 1 (agregar)
 │   ├── sonido_mashup_2.mp3 # Archivo de audio 2 (agregar)
 │   └── sonido_mashup_3.mp3 # Archivo de audio 3 (agregar)
-├── README.md               # Este archivo
-└── INFORME_PROFESOR.md     # Informe para el profesor
+└── README.md               # Este archivo
 ```
 
 ## 🔧 Instalación y Configuración
@@ -217,4 +216,5 @@ Este proyecto es parte de una actividad académica y está destinado únicamente
 ---
 
 **Nota:** Este proyecto demuestra la integración de múltiples tecnologías web modernas y APIs externas, proporcionando una base sólida para proyectos más complejos en el futuro.
+
 
